@@ -1,7 +1,7 @@
 ''' Bonion's Aurora4X Naming Theme Editor
     This software is released under the MIT license. See LICENSE for details.
     Copyright (C) 2025 boniondev
-    '''
+'''
 import argparse
 import sqlite3
 
