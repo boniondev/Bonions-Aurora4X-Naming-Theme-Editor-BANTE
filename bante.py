@@ -26,6 +26,8 @@ if __name__ == "__main__":
         cur = conn.cursor()
         cur.execute("SELECT * FROM DIM_NamingThemeTypes")
         rows = cur.fetchall()
+        print("ThemeID | Description")
+        print("---------------------")
         for row in rows:
-            print(f"ID: {row[0]} | Name: {row[1]}")
+            print(f"{row[0]} | {row[1]}")
         conn.close()
