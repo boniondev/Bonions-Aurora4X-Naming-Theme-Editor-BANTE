@@ -13,7 +13,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "-p", "--path",
-        help = "UNIX style absolute path to Aurora.db " +
+        help =  "UNIX style absolute or relative path to Aurora.db " +
                 "(Looks inside current directory if unspecified)",
         required = False
     )
