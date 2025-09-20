@@ -20,6 +20,11 @@ if __name__ == "__main__":
     parser.add_argument(
         "-l", "--list", help = "List all naming theme", action ="store_true", dest = "list"
     )
+    parser.add_argument(
+        "-ln", "--list-names",
+        help = "List all names from a given ThemeID",
+        action = "store", dest = "themeid", type = int
+    )
     args = parser.parse_args()
     if args.list:
         conn = sqlite3.connect(f"file:{args.path if args.path else "AuroraDB.db"}?mode=ro", uri = True)
