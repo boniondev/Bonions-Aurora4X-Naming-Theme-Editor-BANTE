@@ -22,7 +22,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
     if args.list:
-        conn = sqlite3.connect(f"file:{args.path if args.path else "AuroraDB.db"}.db?mode=rw", uri = True)
+        conn = sqlite3.connect(f"file:{args.path if args.path else "AuroraDB.db"}?mode=rw", uri = True)
         cur = conn.cursor()
         cur.execute("SELECT * FROM DIM_NamingThemeTypes")
         rows = cur.fetchall()
