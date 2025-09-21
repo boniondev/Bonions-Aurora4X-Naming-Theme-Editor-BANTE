@@ -4,6 +4,7 @@
 '''
 import argparse
 import sqlite3
+import sys
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -34,7 +35,7 @@ if __name__ == "__main__":
         except sqlite3.OperationalError as e:
             print("Could not open database. Is the path correct and UNIX styled? Am I in the same folder as AuroraDB.db?")
             print("basnse will close now!")
-            exit(1)
+            sys.exit(1)
         cur = conn.cursor()
         cur.execute("SELECT * FROM DIM_NamingThemeTypes")
         rows = cur.fetchall()
