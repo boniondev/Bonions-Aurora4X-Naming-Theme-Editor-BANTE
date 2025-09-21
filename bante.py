@@ -20,6 +20,7 @@ def connect_ro(path) -> sqlite3.Connection:
         sys.exit(1)
 
 if __name__ == "__main__":
+
     parser = argparse.ArgumentParser(
         prog="py bante.py",
         description="Bonion's Aurora4X Naming Theme Editor",
@@ -40,6 +41,7 @@ if __name__ == "__main__":
         help = "List all names from a given ThemeID",
         action = "store", dest = "themeid", type = int
     )
+
     args = parser.parse_args()
     if args.list:
         conn = connect_ro(args.path)
