@@ -53,3 +53,12 @@ if __name__ == "__main__":
         for row in rows:
             print(f"{row[0]} | {row[1]}")
         conn.close()
+    elif args.themeid:
+        conn = connect_ro(args.path)
+        cur = conn.cursor()
+        cur.execute(f"SELECT Name FROM DIM_NamingTheme WHERE NameThemeID == '{args.themeid}'")
+        rows = cur.fetchall()
+        for row in rows:
+            print(row[0])
+        conn.close()
+
