@@ -25,16 +25,17 @@ if __name__ == "__main__":
         description="Bonion's Aurora4X Naming Theme Editor",
         epilog="Backup your DB before using this tool!",
     )
+    mutualexcgroup = parser.add_mutually_exclusive_group()
     parser.add_argument(
         "-p", "--path",
         help =  "UNIX style absolute or relative path to Aurora.db " +
                 "(Looks inside current directory if unspecified)",
         required = False
     )
-    parser.add_argument(
+    mutualexcgroup.add_argument(
         "-l", "--list", help = "List all naming theme", action ="store_true", dest = "list"
     )
-    parser.add_argument(
+    mutualexcgroup.add_argument(
         "-ln", "--list-names",
         help = "List all names from a given ThemeID",
         action = "store", dest = "themeid", type = int
