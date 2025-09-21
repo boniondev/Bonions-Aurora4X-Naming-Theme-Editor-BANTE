@@ -7,7 +7,7 @@ import sqlite3
 import sys
 
 
-def connect_ro(path = False) -> sqlite3.Connection:
+def connect_ro(path) -> sqlite3.Connection:
     '''
         Reusable instructions to connect to the database, READ-ONLY
     '''
