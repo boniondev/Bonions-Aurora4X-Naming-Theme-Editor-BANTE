@@ -32,7 +32,7 @@ if __name__ == "__main__":
         try:
             conn = sqlite3.connect(f"file:{path if path else "AuroraDB.db"}?mode=ro", uri = True)
         except sqlite3.OperationalError as e:
-            print("Could not open database. Is the path correct and UNIX styled?")
+            print("Could not open database. Is the path correct and UNIX styled? Am I in the same folder as AuroraDB.db?")
             print("basnse will close now!")
             exit(1)
         cur = conn.cursor()
