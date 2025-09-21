@@ -26,9 +26,11 @@ if __name__ == "__main__":
         action = "store", dest = "themeid", type = int
     )
     args = parser.parse_args()
+    if args.path:
+        path = args.path
     if args.list:
         try:
-            conn = sqlite3.connect(f"file:{args.path if args.path else "AuroraDB.db"}?mode=ro", uri = True)
+            conn = sqlite3.connect(f"file:{path if path else "AuroraDB.db"}?mode=ro", uri = True)
         except sqlite3.OperationalError as e:
             print("Could not open database. Is the path correct and UNIX styled?")
             print("basnse will close now!")
