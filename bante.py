@@ -58,7 +58,9 @@ if __name__ == "__main__":
         cur = conn.cursor()
         cur.execute(f"SELECT Name FROM DIM_NamingTheme WHERE NameThemeID == '{args.themeid}'")
         rows = cur.fetchall()
+        num = 0
         for row in rows:
-            print(row[0])
+            print(f"{num}|{row[0]}")
+            num = num + 1
         conn.close()
 
