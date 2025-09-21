@@ -6,6 +6,19 @@ import argparse
 import sqlite3
 import sys
 
+
+def connect_ro(path = False) -> sqlite3.Connection:
+    '''
+        Reusable instructions to connect to the database, READ-ONLY
+    '''
+    try:
+        connection = sqlite3.connect(f"file:{path if path else "AuroraDB.db"}?mode=ro", uri = True)
+        return connection
+    except sqlite3.OperationalError:
+        print("Could not open database. Is the path correct and UNIX styled? Am I in the same folder as AuroraDB.db?")
+        print("basnse will close now!")
+        sys.exit(1)
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog="py bante.py",
@@ -28,12 +41,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
     if args.list:
-        try:
-            conn = sqlite3.connect(f"file:{args.path if args.path else "AuroraDB.db"}?mode=ro", uri = True)
-        except sqlite3.OperationalError as e:
-            print("Could not open database. Is the path correct and UNIX styled? Am I in the same folder as AuroraDB.db?")
-            print("basnse will close now!")
-            sys.exit(1)
+        conn = connect_ro(args.path)
         cur = conn.cursor()
         cur.execute("SELECT * FROM DIM_NamingThemeTypes")
         rows = cur.fetchall()
