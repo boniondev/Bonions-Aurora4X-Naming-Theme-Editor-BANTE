@@ -44,7 +44,7 @@ if __name__ == "__main__":
     mutualexcgroup.add_argument(
         "-dn", "--delete-name",
         help = "Delete name(s) from a given name theme. Insert the ThemeID, and then the rows you wish to delete, separated by spaces",
-        action = "store", nargs = "+", dest = "deletetions", type = list[int]
+        action = "store", nargs = "+", dest = "deletetions"
     )
 
     args = parser.parse_args()
