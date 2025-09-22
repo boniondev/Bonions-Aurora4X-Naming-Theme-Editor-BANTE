@@ -46,7 +46,7 @@ if __name__ == "__main__":
         "-dn", "--delete-name",
         help = "Delete name(s) from a given name theme." \
                 " Insert the ThemeID, and then the rows you wish to delete, separated by spaces",
-        action = "store", nargs = "+", dest = "deletetions"
+        action = "store", nargs = "+", metavar = ("THEMEID", "DELETIONS"), dest = "deletetions"
     )
 
     args = parser.parse_args()
