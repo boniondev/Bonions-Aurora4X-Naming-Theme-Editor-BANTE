@@ -23,7 +23,7 @@ def connect_ro(path : str) -> sqlite3.Connection:
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(
-        prog="py bante.py",
+        prog="py[thon] bante.py",
         description="Bonion's Aurora4X Naming Theme Editor",
         epilog="Backup your DB before using this tool!",
     )
