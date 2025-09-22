@@ -70,4 +70,8 @@ if __name__ == "__main__":
             print(f"{num}|{row[0]}")
             num = num + 1
         conn.close()
-
+    elif args.deletions:
+        if len(args.deletions) < 2:
+            print("ThemeID was provided, but no rows to delete were given.")
+            print("Deleting nothing!")
+            sys.exit(0)
