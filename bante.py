@@ -58,21 +58,21 @@ if __name__ == "__main__":
         CONN : sqlite3.Connection   = connect(ARGS.path)
         cur  : sqlite3.Cursor       = CONN.cursor()
         cur.execute("SELECT * FROM DIM_NamingThemeTypes")
-        rows : list = cur.fetchall()
+        ROWS : list = cur.fetchall()
         print("ThemeID | Description")
         print("---------------------")
-        for row in rows:
-            print(f"{row[0]} | {row[1]}")
+        for ROW in ROWS:
+            print(f"{ROW[0]} | {ROW[1]}")
         CONN.close()
 
     elif ARGS.list_from_themeid:
         CONN : sqlite3.Connection   = connect(ARGS.path)
         cur  : sqlite3.Cursor       = CONN.cursor()
         cur.execute(f"SELECT Name FROM DIM_NamingTheme WHERE NameThemeID == '{ARGS.list_from_themeid}'")
-        rows = cur.fetchall()
+        ROWS = cur.fetchall()
         NUM = 0
-        for row in rows:
-            print(f"{NUM}|{row[0]}")
+        for ROW in ROWS:
+            print(f"{NUM}|{ROW[0]}")
             NUM = NUM + 1
         CONN.close()
 
