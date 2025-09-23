@@ -68,7 +68,7 @@ if __name__ == "__main__":
     elif ARGS.list_from_themeid:
         CONN : sqlite3.Connection   = connect(ARGS.path)
         cur  : sqlite3.Cursor       = CONN.cursor()
-        cur.execute(f"SELECT Name FROM DIM_NamingTheme WHERE NameThemeID == '{ARGS.list_from_themeid}'")
+        cur.execute(f"SELECT Name FROM DIM_NamingTheme WHERE NameThemeID = '{ARGS.list_from_themeid}'")
         ROWS : tuple = tuple(cur.fetchall())
         NUM = 0
         for ROW in ROWS:
