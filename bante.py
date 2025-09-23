@@ -7,12 +7,16 @@ import sqlite3
 import sys
 
 
-def connect_ro(path : str) -> sqlite3.Connection:
+def connect(path : str, read_only : bool = True) -> sqlite3.Connection:
     '''
-        Reusable instructions to connect to the database, READ-ONLY
+        Reusable instructions to connect to the database.\n
+        READ-ONLY   by default\n
+        READ-WRITE  if read_only is passed as false 
     '''
     try:
-        connection : sqlite3.Connection = sqlite3.connect(f"file:{path if path else "AuroraDB.db"}?mode=ro", uri = True)
+        connection : sqlite3.Connection = sqlite3.connect(
+            f"file:{path if path else "AuroraDB.db"}?mode={"ro" if read_only else "rw"}", uri = True
+        )
         return connection
     except sqlite3.OperationalError:
         print(  "Could not open database. Is the path correct and UNIX styled?" +
@@ -40,7 +44,7 @@ if __name__ == "__main__":
     MUTUALEXCGROUP.add_argument(
         "-ln", "--list-names",
         help = "List all names from a given ThemeID",
-        action = "store", dest = "themeid", type = int
+        action = "store", dest = "list_from_themeid", type = int
     )
     MUTUALEXCGROUP.add_argument(
         "-dn", "--delete-name",
@@ -51,7 +55,7 @@ if __name__ == "__main__":
 
     ARGS : argparse.Namespace= PARSER.parse_args()
     if ARGS.list:
-        CONN : sqlite3.Connection   = connect_ro(ARGS.path)
+        CONN : sqlite3.Connection   = connect(ARGS.path)
         cur  : sqlite3.Cursor       = CONN.cursor()
         cur.execute("SELECT * FROM DIM_NamingThemeTypes")
         rows : list = cur.fetchall()
@@ -61,10 +65,10 @@ if __name__ == "__main__":
             print(f"{row[0]} | {row[1]}")
         CONN.close()
 
-    elif ARGS.themeid:
-        CONN : sqlite3.Connection   = connect_ro(ARGS.path)
+    elif ARGS.list_from_themeid:
+        CONN : sqlite3.Connection   = connect(ARGS.path)
         cur  : sqlite3.Cursor       = CONN.cursor()
-        cur.execute(f"SELECT Name FROM DIM_NamingTheme WHERE NameThemeID == '{ARGS.themeid}'")
+        cur.execute(f"SELECT Name FROM DIM_NamingTheme WHERE NameThemeID == '{ARGS.list_from_themeid}'")
         rows = cur.fetchall()
         NUM = 0
         for row in rows:
