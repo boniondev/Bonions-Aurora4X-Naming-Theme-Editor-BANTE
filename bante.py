@@ -60,6 +60,7 @@ if __name__ == "__main__":
         for row in rows:
             print(f"{row[0]} | {row[1]}")
         CONN.close()
+
     elif ARGS.themeid:
         CONN : sqlite3.Connection   = connect_ro(ARGS.path)
         cur  : sqlite3.Cursor       = CONN.cursor()
@@ -70,6 +71,7 @@ if __name__ == "__main__":
             print(f"{NUM}|{row[0]}")
             NUM = NUM + 1
         CONN.close()
+
     elif ARGS.deletions:
         if len(ARGS.deletions) < 2:
             print("ThemeID was provided, but no rows to delete were given.")
