@@ -23,7 +23,7 @@ def connect(path : str, read_only : bool = True) -> sqlite3.Connection:
     except sqlite3.OperationalError:
         print(  "Could not open database. Is the path correct and UNIX styled?" +
                 "Am I in the same folder as AuroraDB.db?")
-        print("basnse will close now!")
+        print("banse will close now!")
         sys.exit(1)
 
 if __name__ == "__main__":
