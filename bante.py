@@ -81,3 +81,29 @@ if __name__ == "__main__":
             print("ThemeID was provided, but no rows to delete were given.")
             print("Deleting nothing!")
             sys.exit(0)
+
+        THEMEID     : int                   = int(ARGS.deletions[0])
+        DELETIONS   : tuple[int, ...]       = tuple(map(int, ARGS.deletions[1:]))
+        CONN        : sqlite3.Connection    = connect(ARGS.path, False)
+        cur         : sqlite3.Cursor        = CONN.cursor()
+
+        cur.execute(f"SELECT Description FROM DIM_NamingThemeTypes WHERE ThemeID = '{THEMEID}'")
+        RESULTS : list[str] = cur.fetchall()
+        match len(RESULTS):
+            case 0:
+                print("No theme found with provided ThemeID.")
+                print("Exiting...")
+                sys.exit(1)
+            case 1:
+                cur.execute(f"SELECT Name FROM DIM_NamingTheme WHERE NameThemeID = '{THEMEID}'")
+                ROWS : tuple[str, ...] = tuple(cur.fetchall())
+                DELETIONSQUERY = " OR ".join([f"Name = '{row}'" for row in DELETIONS])
+                assembled_query : str = f"SELECT Name FROM DIM_NamingTheme WHERE NameThemeID = '{THEMEID}' AND ({DELETIONSQUERY})"
+                ##TODO Ask the user if he's sure, show what's about to be deleted, then do if confirmation is given
+            case _:
+                print("Multiple Themes found with the same ThemeID!")
+                print("This should never happen under normal circumstances!")
+                print(  "If you have edited the db using this tool," +
+                        " reload your backup " +
+                        "(your db is possibly malformed) and contact the author")
+                sys.exit(1)
