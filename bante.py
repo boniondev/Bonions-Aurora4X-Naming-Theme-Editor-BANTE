@@ -120,7 +120,7 @@ if __name__ == "__main__":
                     sys.exit(0)
                 else:
                     CONN.commit()
-                    print("Changes committed succesfully.")
+                    print("Changes committed successfully.")
                     CONN.close()
                     sys.exit(0)
             case _:
