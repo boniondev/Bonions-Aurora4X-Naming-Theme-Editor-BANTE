@@ -128,5 +128,7 @@ if __name__ == "__main__":
                 print("This should never happen under normal circumstances!")
                 print(  "If you have edited the db using this tool," +
                         " reload your backup " +
-                        "(your db is possibly malformed) and contact the author")
+                        "(your db is possibly malformed) "
+                        "and open an issue at https://github.com/boniondev/Bonions-Aurora4X-Naming-Theme-Editor-BANTE/issues"
+                    )
                 sys.exit(1)
