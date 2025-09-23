@@ -98,10 +98,31 @@ if __name__ == "__main__":
                 sys.exit(1)
             case 1:
                 cur.execute(f"SELECT Name FROM DIM_NamingTheme WHERE NameThemeID = '{THEMEID}'")
-                ROWS : tuple[str, ...] = tuple(cur.fetchall())
-                DELETIONSQUERY = " OR ".join([f"Name = '{row}'" for row in DELETIONS])
-                assembled_query : str = f"SELECT Name FROM DIM_NamingTheme WHERE NameThemeID = '{THEMEID}' AND ({DELETIONSQUERY})"
-                ##TODO Ask the user if he's sure, show what's about to be deleted, then do if confirmation is given
+                ALL_ROWS            : tuple[str, ...]   = tuple([row[0] for row in cur.fetchall()])
+                NAMESTODELETE       : tuple[str, ...]   = tuple([ALL_ROWS[i] for i in DELETIONS])
+                NAMESTODELETESQL    : str               = " OR ".join([f"Name = '{name}'" for name in NAMESTODELETE])
+                print(
+                        "DELETE "
+                        "FROM DIM_NamingTheme "
+                        f"WHERE NameThemeID = '{THEMEID}' AND ({NAMESTODELETESQL})"
+                )
+                cur.execute(
+                            "DELETE "
+                            "FROM DIM_NamingTheme "
+                            f"WHERE NameThemeID = '{THEMEID}' AND ({NAMESTODELETESQL})"
+                            )
+                print("You are about to delete " + ', '.join(f"{name}" for name in NAMESTODELETE) + f" from {RESULTS[0][0]}.")
+                print("Are you sure? (y/N)")
+                if input().lower() != 'y':
+                    print("Aborting...")
+                    CONN.rollback()
+                    CONN.close()
+                    sys.exit(0)
+                else:
+                    CONN.commit()
+                    print("Changes committed succesfully.")
+                    CONN.close()
+                    sys.exit(0)
             case _:
                 print("Multiple Themes found with the same ThemeID!")
                 print("This should never happen under normal circumstances!")
