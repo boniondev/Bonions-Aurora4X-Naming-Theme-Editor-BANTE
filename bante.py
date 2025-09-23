@@ -12,7 +12,7 @@ def connect_ro(path : str) -> sqlite3.Connection:
         Reusable instructions to connect to the database, READ-ONLY
     '''
     try:
-        connection = sqlite3.connect(f"file:{path if path else "AuroraDB.db"}?mode=ro", uri = True)
+        connection : sqlite3.Connection = sqlite3.connect(f"file:{path if path else "AuroraDB.db"}?mode=ro", uri = True)
         return connection
     except sqlite3.OperationalError:
         print(  "Could not open database. Is the path correct and UNIX styled?" +
@@ -22,12 +22,12 @@ def connect_ro(path : str) -> sqlite3.Connection:
 
 if __name__ == "__main__":
 
-    PARSER = argparse.ArgumentParser(
+    PARSER : argparse.ArgumentParser = argparse.ArgumentParser(
         prog = "py[thon] bante.py",
         description = "Bonion's Aurora4X Naming Theme Editor",
         epilog = "Backup your DB before using this tool!",
     )
-    MUTUALEXCGROUP = PARSER.add_mutually_exclusive_group(required = True)
+    MUTUALEXCGROUP : argparse._MutuallyExclusiveGroup = PARSER.add_mutually_exclusive_group(required = True)
     PARSER.add_argument(
         "-p", "--path",
         help =  "UNIX style absolute or relative path to Aurora.db " +
@@ -49,20 +49,20 @@ if __name__ == "__main__":
         action = "store", nargs = "+", metavar = ("THEMEID", "DELETIONS"), dest = "deletions"
     )
 
-    ARGS = PARSER.parse_args()
+    ARGS : argparse.Namespace= PARSER.parse_args()
     if ARGS.list:
-        CONN = connect_ro(ARGS.path)
-        cur = CONN.cursor()
+        CONN : sqlite3.Connection   = connect_ro(ARGS.path)
+        cur  : sqlite3.Cursor       = CONN.cursor()
         cur.execute("SELECT * FROM DIM_NamingThemeTypes")
-        rows = cur.fetchall()
+        rows : list = cur.fetchall()
         print("ThemeID | Description")
         print("---------------------")
         for row in rows:
             print(f"{row[0]} | {row[1]}")
         CONN.close()
     elif ARGS.themeid:
-        CONN = connect_ro(ARGS.path)
-        cur = CONN.cursor()
+        CONN : sqlite3.Connection   = connect_ro(ARGS.path)
+        cur  : sqlite3.Cursor       = CONN.cursor()
         cur.execute(f"SELECT Name FROM DIM_NamingTheme WHERE NameThemeID == '{ARGS.themeid}'")
         rows = cur.fetchall()
         NUM = 0
