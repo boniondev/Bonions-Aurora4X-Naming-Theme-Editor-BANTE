@@ -11,6 +11,7 @@ This software is a tool that can be used on Aurora4X's database to add, remove, 
 - See Naming Themes
 - See Names of Naming Themes
 - Delete Names inside Naming Themes
+- Delete Naming Themes
 
 **Planned Features:**
 - Create Naming Themes
