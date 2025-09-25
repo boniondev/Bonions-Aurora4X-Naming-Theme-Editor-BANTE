@@ -46,7 +46,7 @@ if __name__ == "__main__":
     MUTUALEXCGROUP.add_argument(
         "-ln", "--list-names",
         help = "List all names from a given ThemeID",
-        action = "store", dest = "list_from_themeid", type = int
+        action = "store", nargs = 1, dest = "list_from_themeid", type = int
     )
     MUTUALEXCGROUP.add_argument(
         "-dn", "--delete-name",
