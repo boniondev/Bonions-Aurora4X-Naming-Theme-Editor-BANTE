@@ -139,3 +139,52 @@ if __name__ == "__main__":
                         "and open an issue at https://github.com/boniondev/Bonions-Aurora4X-Naming-Theme-Editor-BANTE/issues"
                     )
                 sys.exit(1)
+    elif ARGS.deletetheme:
+        DECISION : str = ARGS.deletetheme[0]
+        match DECISION.lower():
+            case 'y':
+                DELETEORPHANS = True
+            case 'n':
+                DELETEORPHANS = False
+            case _:
+                print("No valid input given for flag -dt, y/n required!")
+                sys.exit(1)
+        
+        THEMEID  : str
+        THEMEIDS : tuple[str] = tuple(ARGS.deletetheme[1:])
+        for THEMEID in THEMEIDS:
+            if THEMEID.isnumeric() is False:
+                print(
+                    "Error! Non numeric ID detected\n"
+                    "Please use numbers!"
+                    )
+                sys.exit(1)
+
+        CONN            : sqlite3.Connection    = connect(ARGS.path, False)
+        cur             : sqlite3.Cursor        = CONN.cursor()
+
+        THEMEIDNAMES    : tuple[str]            = cur.execute(f"SELECT Description FROM DIM_NamingThemeTypes WHERE {" OR ".join([f"ThemeID = {id}" for id in THEMEIDS])}").fetchall()
+
+        WARNSTRING : str = (
+                            "You are about to delete " +
+                            ", ".join([f"{description[0]}" for description in cur.execute(f"SELECT Description FROM DIM_NamingThemeTypes WHERE {" OR ".join([f"Description = '{THEMEIDNAME[0]}'" for THEMEIDNAME in THEMEIDNAMES])}").fetchall()]) + # I am so sorry
+                            (" along with the names inside, are you sure?"if DELETEORPHANS else ", are you sure?")
+                            )
+
+        for THEMEID in THEMEIDS:
+            cur.execute(f"DELETE FROM DIM_NamingThemeTypes WHERE ThemeID = '{THEMEID}'")
+            if DELETEORPHANS:
+                cur.execute(f"DELETE FROM DIM_NamingTheme WHERE NameThemeID = '{THEMEID}'")
+            print(THEMEID)
+        
+        print(WARNSTRING)
+        print("[y/N]")
+        if input().lower() != 'y':
+            print("Aborting...")
+            CONN.rollback()
+            sys.exit(0)
+        else:
+            CONN.commit()
+            print("Changes committed successfully.")
+            CONN.close()
+            sys.exit(0)
