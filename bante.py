@@ -52,7 +52,7 @@ if __name__ == "__main__":
         "-dn", "--delete-name",
         help = "Delete name(s) from a given ThemeID." \
                 " Insert the ThemeID, and then the rows you wish to delete, separated by spaces",
-        action = "store", nargs = "+", metavar = ("THEMEID", "DELETIONS"), dest = "deletions"
+        action = "store", nargs = "+", metavar = ("THEMEID", "DELETIONS"), dest = "deletenames"
     )
 
     ARGS : argparse.Namespace= PARSER.parse_args()
@@ -78,14 +78,14 @@ if __name__ == "__main__":
             NUM = NUM + 1
         CONN.close()
 
-    elif ARGS.deletions:
-        if len(ARGS.deletions) < 2:
+    elif ARGS.deletenames:
+        if len(ARGS.deletenames) < 2:
             print("ThemeID was provided, but no rows to delete were given.")
             print("Deleting nothing!")
             sys.exit(0)
 
-        THEMEID     : int                   = int(ARGS.deletions[0])
-        DELETIONS   : tuple[int, ...]       = tuple(map(int, ARGS.deletions[1:]))
+        THEMEID     : int                   = int(ARGS.deletenames[0])
+        DELETIONS   : tuple[int, ...]       = tuple(map(int, ARGS.deletenames[1:]))
         CONN        : sqlite3.Connection    = connect(ARGS.path, False)
         cur         : sqlite3.Cursor        = CONN.cursor()
 
