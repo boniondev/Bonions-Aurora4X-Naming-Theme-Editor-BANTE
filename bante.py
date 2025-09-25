@@ -32,6 +32,7 @@ if __name__ == "__main__":
         prog = "py[thon] bante.py",
         description = "Bonion's Aurora4X Naming Theme Editor",
         epilog = "Backup your DB before using this tool!",
+        formatter_class = argparse.RawTextHelpFormatter,
     )
     MUTUALEXCGROUP : argparse._MutuallyExclusiveGroup = PARSER.add_mutually_exclusive_group(required = True)
     PARSER.add_argument(
