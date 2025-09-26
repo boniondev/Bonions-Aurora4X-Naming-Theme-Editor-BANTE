@@ -226,7 +226,7 @@ if __name__ == "__main__":
         THEMEID     : int = check_for_num_id(THEMEID)
         
         try:
-            NAMES       : tuple[str] = open(PATHTOFILE,"r", encoding = "utf-8").read().split("\n")
+            NAMES       : tuple[str] = open(PATHTOFILE,"r", encoding = "utf-8").read().splitlines()
         except FileNotFoundError:
             print("File not found. Is the path correct?")
             sys.exit(1)
