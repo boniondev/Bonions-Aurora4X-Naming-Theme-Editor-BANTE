@@ -257,3 +257,48 @@ if __name__ == "__main__":
                 CONN.close()
                 print("Committed successfully.")
                 sys.exit(0)
+    elif ARGS.addnametheme:
+        if len(ARGS.addnametheme) > 2:
+            print("Error: Too many arguments supplied for flag -at; must be no more than 2!")
+            print("Did you surround the name in double quotes?")
+            sys.exit(1)
+
+        CONN    : sqlite3.Connection    = connect(ARGS.path, False)
+        cur     : sqlite3.Cursor        = CONN.cursor()
+
+        THEMENAME   : str = ARGS.addnametheme[0]
+        
+        if len(ARGS.addnametheme) == 2:
+            PATHTOFILE  : str = ARGS.addnametheme[1]
+            try:
+                NAMES       : tuple[str] = open(PATHTOFILE,"r", encoding = "utf-8").read().splitlines()
+            except FileNotFoundError:
+                print("File not found. Is the path correct?")
+                sys.exit(1)
+
+        NEXTIDNUMBER : int = int(cur.execute("SELECT MAX(ThemeID) FROM DIM_NamingThemeTypes").fetchone()[0]) + 1
+        cur.execute(f"INSERT INTO DIM_NamingThemeTypes VALUES ('{NEXTIDNUMBER}', '{THEMENAME}')")
+
+        if 'NAMES' in locals() and NAMES:
+            for NAME in NAMES:
+                cur.execute(f"INSERT INTO DIM_NamingTheme VALUES ('{NEXTIDNUMBER}', '{NAME}')")
+            print("You are about to add")
+            for NAME in NAMES:
+                print(NAME)
+            print(f"into a new theme named \"{THEMENAME}\"")
+        else:
+            print(f"You are about to create a new empty theme named \"{THEMENAME}\"")
+        print("Are you sure?")
+        print("[y/N]")
+
+        if input().lower() != 'y':
+            print("Aborting...")
+            CONN.rollback()
+            CONN.close()
+            sys.exit(0)
+        else:
+            CONN.commit()
+            print("Committed successfully.")
+            CONN.close()
+            sys.exit(0)
+        
