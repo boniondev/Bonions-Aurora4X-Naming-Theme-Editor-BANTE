@@ -6,6 +6,22 @@ import argparse
 import sqlite3
 import sys
 
+def check_for_num_id(string_id : str) -> int:
+    '''
+        Checks if the given string ID is an actual number,
+        prints an error if it isn't,
+        returns the ID as an integer if it is.
+        return value may be freely discarded.
+    '''
+    if string_id.isnumeric() is False:
+        print(
+            "Error! Non numeric ID detected\n"
+            "Please use numbers!"
+        )
+        sys.exit(1)
+    else:
+        int_id : int = int(string_id)
+        return int_id
 
 def connect(path : str, read_only : bool = True) -> sqlite3.Connection:
     '''
@@ -162,12 +178,7 @@ if __name__ == "__main__":
         THEMEID  : str
         THEMEIDS : tuple[str] = tuple(ARGS.deletetheme[1:])
         for THEMEID in THEMEIDS:
-            if THEMEID.isnumeric() is False:
-                print(
-                    "Error! Non numeric ID detected\n"
-                    "Please use numbers!"
-                    )
-                sys.exit(1)
+            check_for_num_id(THEMEID)
 
         CONN            : sqlite3.Connection    = connect(ARGS.path, False)
         cur             : sqlite3.Cursor        = CONN.cursor()
