@@ -86,6 +86,13 @@ if __name__ == "__main__":
                 " along with the ThemeID to add the names to.",
         nargs = 2, metavar = ("PATHTOFILE", "THEMEID"), dest = "addnames"
     )
+    MUTUALEXCGROUP.add_argument(
+        "-at", "--add-theme",
+        help =  "Add a new NameTheme surrounded by double quotes.\n"
+                "You may optionally supply a text file to import newline separated names from, "
+                "or leave it empty.",
+        nargs = "+", metavar = ("\"THEME_NAME\"",  "PATHTOFILE"), dest = ("addnametheme")
+    )
 
     ARGS : argparse.Namespace= PARSER.parse_args()
     if ARGS.list:
