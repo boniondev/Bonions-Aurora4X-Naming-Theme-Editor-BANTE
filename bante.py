@@ -51,7 +51,7 @@ if __name__ == "__main__":
     )
     MUTUALEXCGROUP.add_argument(
         "-dn", "--delete-name",
-        help = "Delete name(s) from a given ThemeID." \
+        help = "Delete name(s) from a given ThemeID."
                 " Insert the ThemeID, and then the rows you wish to delete, separated by spaces",
         action = "store", nargs = "+", metavar = ("THEMEID", "DELETIONS"), dest = "deletenames"
     )
