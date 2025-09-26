@@ -57,8 +57,10 @@ if __name__ == "__main__":
     )
     MUTUALEXCGROUP.add_argument(
         "-dt", "--delete-theme",
-        help =  "Delete NamingThemes from given ThemeIDs.\nPut y or n at the beginning of the command to keep/delete orphan names.\n"
-                "Deleting NamingThemes a Race is actively using may have unpredictable results. Do so at your own risk.",
+        help =  "Delete NamingThemes from given ThemeIDs."
+                "\nPut y or n at the beginning of the command to keep/delete orphan names.\n"
+                "Deleting NamingThemes a Race is actively using may have unpredictable results. " 
+                "Do so at your own risk.",
         action = "store", nargs = "+", metavar = ("DELETEORPHANS", "THEMEID"), dest = "deletetheme"
     )
 
