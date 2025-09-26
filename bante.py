@@ -42,7 +42,7 @@ if __name__ == "__main__":
         required = False
     )
     MUTUALEXCGROUP.add_argument(
-        "-l", "--list", help = "List all naming theme", action ="store_true", dest = "list"
+        "-l", "--list", help = "List all naming themes", action ="store_true", dest = "list"
     )
     MUTUALEXCGROUP.add_argument(
         "-ln", "--list-names",
