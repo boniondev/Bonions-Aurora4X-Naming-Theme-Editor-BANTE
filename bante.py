@@ -301,4 +301,3 @@ if __name__ == "__main__":
             print("Committed successfully.")
             CONN.close()
             sys.exit(0)
-        
