@@ -31,7 +31,7 @@ def connect(path : str, read_only : bool = True) -> sqlite3.Connection:
     '''
     try:
         connection : sqlite3.Connection = sqlite3.connect(
-            f"file:{path if path else "AuroraDB.db"}?mode={"ro" if read_only else "rw"}",
+            f"file:{path if path else "AuroraDB.db"}?mode={'ro' if read_only else 'rw'}",
             uri = True,
             isolation_level = "EXCLUSIVE",
         )
