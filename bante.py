@@ -230,7 +230,7 @@ if __name__ == "__main__":
             print("No NameTheme found with provided ThemeID")
             sys.exit(0)
         else:
-            THEMENAME   : str = cur.execute(f"SELECT Description FROM DIM_NaminThemeTypes WHERE ThemeID = '{THEMEID}'").fetchone()
+            THEMENAME   : str = cur.execute(f"SELECT Description FROM DIM_NamingThemeTypes WHERE ThemeID = '{THEMEID}'").fetchone()
             for NAME in NAMES:
                 cur.execute(f"INSERT INTO DIM_NamingTheme VALUES ('{THEMEID}', '{NAME}')")
             
