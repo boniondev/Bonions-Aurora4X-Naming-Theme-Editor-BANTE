@@ -236,7 +236,7 @@ if __name__ == "__main__":
             
             print("You are about to insert")
             for NAME in NAMES:
-                print(NAME + "\n")
+                print(NAME)
             print(f"inside {THEMENAME}, are you sure?")
             print("[y/N]")
 
