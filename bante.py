@@ -208,3 +208,45 @@ if __name__ == "__main__":
             print("Changes committed successfully.")
             CONN.close()
             sys.exit(0)
+
+    elif ARGS.addnames:
+        CONN        : sqlite3.Connection    = connect(ARGS.path, False)
+        cur         : sqlite3.Cursor        = CONN.cursor()
+
+
+        PATHTOFILE  : str = ARGS.addnames[0]
+        THEMEID     : str = ARGS.addnames[1]
+        THEMEID     : int = check_for_num_id(THEMEID)
+        
+        try:
+            NAMES       : tuple[str] = open(PATHTOFILE,"r", encoding = "utf-8").read().split("\n")
+        except FileNotFoundError:
+            print("File not found. Is the path correct?")
+            sys.exit(1)
+
+        
+
+        if len(cur.execute(f"SELECT * FROM DIM_NamingThemeTypes WHERE ThemeID = '{THEMEID}'").fetchall()) < 1:
+            print("No NameTheme found with provided ThemeID")
+            sys.exit(0)
+        else:
+            THEMENAME   : str = cur.execute(f"SELECT Description FROM DIM_NaminThemeTypes WHERE ThemeID = '{THEMEID}'").fetchone()
+            for NAME in NAMES:
+                cur.execute(f"INSERT INTO DIM_NamingTheme VALUES ('{THEMEID}', '{NAME}')")
+            
+            print("You are about to insert")
+            for NAME in NAMES:
+                print(NAME + "\n")
+            print(f"inside {THEMENAME}, are you sure?")
+            print("[y/N]")
+
+            if input().lower() != 'y':
+                print("Aborting...")
+                CONN.rollback()
+                CONN.close()
+                sys.exit(0)
+            else:
+                CONN.commit()
+                CONN.close()
+                print("Committed successfully.")
+                sys.exit(0)
