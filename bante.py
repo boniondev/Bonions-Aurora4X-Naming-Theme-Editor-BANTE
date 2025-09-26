@@ -63,6 +63,13 @@ if __name__ == "__main__":
                 "Do so at your own risk.",
         action = "store", nargs = "+", metavar = ("DELETEORPHANS", "THEMEID"), dest = "deletetheme"
     )
+    MUTUALEXCGROUP.add_argument(
+        "-an", "--add-names",
+        help =  "Add name(s) to a NameTheme."
+                " A text file with names separated by newlines must be supplied,"
+                " along with the ThemeID to add the names to.",
+        nargs = 2, metavar = ("PATHTOFILE", "THEMEID"), dest = "addnames"
+    )
 
     ARGS : argparse.Namespace= PARSER.parse_args()
     if ARGS.list:
