@@ -12,10 +12,10 @@ This software is a tool that can be used on Aurora4X's database to add, remove, 
 - See Names of Naming Themes
 - Delete Names inside Naming Themes
 - Delete Naming Themes
+- Add Names to Naming Themes
 
 **Planned Features:**
 - Create Naming Themes
-- Add Names to Naming Themes
 - GUI (Maybe, eventually, possibly, idk tho)
 
 **How do I use this?**<br>
