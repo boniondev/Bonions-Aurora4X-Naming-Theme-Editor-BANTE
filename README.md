@@ -19,4 +19,8 @@ This software is a tool that can be used on Aurora4X's database to add, remove, 
 - GUI (Maybe, eventually, possibly)
 
 **How do I use this?**<br>
-Check the wiki.(Nothing there yet lol)
+Use python bante.py \[commands\], or py bante.py \[commands\] if you are on Windows.
+
+
+**What do I need to use this?**
+This project was written using Python 3.13, but **should** run with versions as old as 3.10. Anyhing under that will not work.
