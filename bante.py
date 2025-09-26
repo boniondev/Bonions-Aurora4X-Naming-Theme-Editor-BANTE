@@ -277,7 +277,7 @@ if __name__ == "__main__":
                 sys.exit(1)
 
         NEXTIDNUMBER : int = int(cur.execute("SELECT MAX(ThemeID) FROM DIM_NamingThemeTypes").fetchone()[0]) + 1
-        cur.execute(f"INSERT INTO DIM_NamingThemeTypes VALUES ('{NEXTIDNUMBER}', '{THEMENAME}')")
+        cur.execute(f"INSERT INTO DIM_NamingThemeTypes VALUES ('{NEXTIDNUMBER}', '{THEMENAME}', '0')")
 
         if 'NAMES' in locals() and NAMES:
             for NAME in NAMES:
