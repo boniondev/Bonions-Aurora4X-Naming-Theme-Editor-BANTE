@@ -58,6 +58,11 @@ if __name__ == "__main__":
         required = False
     )
     MUTUALEXCGROUP.add_argument(
+        "-e", "-export",
+        help = "Export all names from a given ThemeID.", action = "store",
+        nargs = 1, metavar = ("THEMEID"), dest = "export"
+    )
+    MUTUALEXCGROUP.add_argument(
         "-l", "--list", help = "List all naming themes", action ="store_true", dest = "list"
     )
     MUTUALEXCGROUP.add_argument(
@@ -95,7 +100,23 @@ if __name__ == "__main__":
     )
 
     ARGS : argparse.Namespace= PARSER.parse_args()
-    if ARGS.list:
+    if ARGS.export:
+        check_for_num_id(ARGS.export[0])
+        THEMEID : int = int(ARGS.export[0])
+
+        CONN    : sqlite3.Connection    = connect(ARGS.path)
+        cur     : sqlite3.Cursor        = CONN.cursor()
+
+        cur.execute(f"SELECT Name FROM DIM_NamingTheme WHERE NameThemeID = '{THEMEID}'")
+
+        newfile = open("exportednames.txt", "w+", encoding = "utf-8")
+        for NAME in cur.fetchall():
+            newfile.write(NAME[0] + "\n")
+        print("Names exported.")
+        CONN.close()
+        sys.exit(0)
+
+    elif ARGS.list:
         CONN : sqlite3.Connection   = connect(ARGS.path)
         cur  : sqlite3.Cursor       = CONN.cursor()
         cur.execute("SELECT * FROM DIM_NamingThemeTypes")
