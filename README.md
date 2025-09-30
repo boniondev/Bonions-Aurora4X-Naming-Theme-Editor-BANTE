@@ -25,6 +25,7 @@ Use of this software while the game is open is **not** recommended. Save and clo
 The commands are as follows, and all of them are mutually exclusive unless specified otherwise:
 - Use `-h` or `--help` to see the help page.
 - Use `-p` or `--path` along a UNIX styled relative or absolute `PATH` to the db you wish to edit. This flag may be used alongside any other that reads or writes into the db. If not supplied, it will always look for an `AuroraDB.db` in the same folder it's placed in.
+- Use `e` or `--export` to export all names from a given Naming Theme. A numeric `THEMEID` must be supplied. The created file will always be named `exportednames.txt`.
 - Use `-l` or `--list` to list all the naming themes inside the db.
 - Use `-ln` or `--list-names`to list Names belonging to a Naming Theme. A numeric `THEMEID` must be supplied.
 - Use `-dn` or `--delete-name` to delete Names from a Naming Theme. A numeric `THEMEID` must be given as the first argument, and an unlimited number of numeric `DELETIONS` may be supplied. `DELETIONS` are the row numbers next to the names printed by using the `-ln` command.
