@@ -58,7 +58,7 @@ if __name__ == "__main__":
         required = False
     )
     MUTUALEXCGROUP.add_argument(
-        "-e", "-export",
+        "-e", "--export",
         help = "Export all names from a given ThemeID.", action = "store",
         nargs = 1, metavar = ("THEMEID"), dest = "export"
     )
